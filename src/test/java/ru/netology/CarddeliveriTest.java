@@ -1,6 +1,7 @@
 package ru.netology;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
@@ -20,7 +21,7 @@ public class CarddeliveriTest {
     @Test
     void shouldTestSyccessfulFormSubmission(){
 
-            //Configuration.headless = true;
+        Configuration.headless = true;
             open("http://localhost:9999/");
             String planningDate = generateDate(4);
 
@@ -38,7 +39,7 @@ public class CarddeliveriTest {
 
 
 
-    }
+}
 
 
 
