@@ -21,7 +21,6 @@ public class CarddeliveriTest {
     @Test
     void shouldTestSyccessfulFormSubmission() {
 
-        Configuration.headless = true;
         open("http://localhost:9999/");
         String planningDate = generateDate(4);
 
