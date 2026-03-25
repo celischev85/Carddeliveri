@@ -32,7 +32,7 @@ public class CarddeliveriTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.browserCapabilities = capabilities;
-
+        Configuration.timeout = 14000;
         Configuration.browser = System.getProperty("selenide.browser", "chrome");
     }
 
