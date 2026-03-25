@@ -13,17 +13,17 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 public class CarddeliveriTest {
-    public String generateDate(int days){
+    public String generateDate(int days) {
         return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-        
+
     }
 
     @Test
-    void shouldTestSyccessfulFormSubmission(){
+    void shouldTestSyccessfulFormSubmission() {
 
         Configuration.headless = true;
-            open("http://localhost:9999/");
-            String planningDate = generateDate(4);
+        open("http://localhost:9999/");
+        String planningDate = generateDate(4);
 
         $("[data-test-id='city'] input").setValue("Казань");
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
@@ -36,9 +36,6 @@ public class CarddeliveriTest {
                 .shouldBe(Condition.visible, Duration.ofSeconds(15))
                 .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate));
     }
-
-
-
 }
 
 
