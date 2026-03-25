@@ -2,8 +2,11 @@ package ru.netology;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -13,10 +16,31 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 public class CarddeliveriTest {
+
+    @BeforeAll
+    static void setUpAll() {
+
+
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--window-size=1366,768"
+        );
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        Configuration.browserCapabilities = capabilities;
+
+        Configuration.browser = System.getProperty("selenide.browser", "chrome");
+    }
+
     public String generateDate(int days) {
         return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
-        @Test
+
+    @Test
     void shouldTestSyccessfulFormSubmission() {
 
         open("http://localhost:9999/");
@@ -34,6 +58,7 @@ public class CarddeliveriTest {
                 .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate));
     }
 }
+
 
 
 
