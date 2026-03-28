@@ -16,25 +16,26 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 public class CarddeliveriTest {
-
     @BeforeAll
     static void setUpAll() {
-
-
         ChromeOptions options = new ChromeOptions();
         options.addArguments(
                 "--no-sandbox",
                 "--disable-dev-shm-usage",
                 "--disable-gpu",
-                "--window-size=1366,768"
+                "--window-size=1366,768",
+                "--disable-extensions",
+                "--remote-allow-origins=*"
         );
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.browserCapabilities = capabilities;
+
         Configuration.timeout = 14000;
         Configuration.browser = System.getProperty("selenide.browser", "chrome");
     }
+
 
     public String generateDate(int days) {
         return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
