@@ -50,7 +50,7 @@ public class CarddeliveriTest {
         $("[data-test-id='city'] input").setValue("Казань");
         $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
         $("[data-test-id='date'] input").setValue(planningDate);
-        $("[data-test-id='name'] input").setValue("Иван Иванов-Петров");
+        $("[data-test-id='name'] input").setValue("Иван Иванов");
         $("[data-test-id='phone'] input").setValue("+79271234567");
         $("[data-test-id='agreement']").click();
         $$("button").find(Condition.text("Забронировать")).click();

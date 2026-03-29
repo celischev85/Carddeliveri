@@ -1,11 +1,10 @@
 name: Java CI with Gradle
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 
@@ -15,39 +14,21 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Install Google Chrome and dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y wget gnupg2 ca-certificates
-          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable \
-            libnss3 libatk-bridge2.0-0 libxss1 libasound2 libgtk-3-0 libx11-6 libx11-xcb1 libxcb1 \
-            fonts-liberation libappindicator3-1 libatk1.0-0 libgbm1 libpango1.0-0
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Start SUT
-        # Запускаем SUT в фоне
-        run: java -jar ./artifacts/app-card-delivery.jar &
+      - name: Check if JAR exists
 
-      - name: Wait for SUT to be ready
-        # Короткая проверка доступности приложения (порт 9999)
-        run: |
-          for i in {1..20}; do
-            if curl -sSf http://localhost:9999/ >/dev/null; then
-              echo "SUT is up"
-              exit 0
-            fi
-            echo "Waiting for SUT..."
-            sleep 1
-          done
-          echo "SUT did not start" >&2
-          exit 1
+        run: ls -R artifacts/
+
+      - name: Start SUT
+
+        run: java -Dfile.encoding=UTF-8 -jar ./artifacts/*.jar &
+
+      - name: Wait for SUT
+
+        run: sleep 20
 
       - name: Build with Gradle
-        # Запускаем автотесты в headless режиме через свойство selenide.headless
-        # Добавил webdriver.chrome.verboseLogging=true для детальной диагностики при падениях
-        run: ./gradlew test --info -Dselenide.headless=true -Dwebdriver.chrome.verboseLogging=true
+
+        run: ./gradlew test -Dselenide.headless=true -Dfile.encoding=UTF-8 --info
