@@ -18,25 +18,7 @@ import static com.codeborne.selenide.Selenide.*;
 public class CarddeliveriTest {
     @BeforeAll
     static void setUpAll() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments(
-                "--no-sandbox",
-                "--disable-dev-shm-usage",
-                "--disable-gpu",
-                "--window-size=1366,768",
-                "--disable-extensions",
-                "--remote-allow-origins=*"
-        );
 
-        System.setProperty("webdriver.chrome.logfile", "build/chromedriver.log");
-        System.setProperty("webdriver.chrome.verboseLogging", "true");
-
-        DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-        Configuration.browserCapabilities = capabilities;
-
-        Configuration.timeout = 14000;
-        Configuration.browser = System.getProperty("selenide.browser", "chrome");
     }
 
 

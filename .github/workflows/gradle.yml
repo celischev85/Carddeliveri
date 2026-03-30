@@ -23,12 +23,6 @@ jobs:
 
       - name: Start SUT
 
-        run: java -Dfile.encoding=UTF-8 -jar ./artifacts/*.jar &
-
-      - name: Wait for SUT
-
-        run: sleep 20
-
       - name: Build with Gradle
 
         run: ./gradlew test -Dselenide.headless=true -Dfile.encoding=UTF-8 --info
