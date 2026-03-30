@@ -28,6 +28,9 @@ public class CarddeliveriTest {
                 "--remote-allow-origins=*"
         );
 
+        System.setProperty("webdriver.chrome.logfile", "build/chromedriver.log");
+        System.setProperty("webdriver.chrome.verboseLogging", "true");
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.browserCapabilities = capabilities;
